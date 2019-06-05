@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<display-name>UserMgr</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/classes/applicationContext.xml</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>XmlRpcUserContextFilter</filter-name>
+		<filter-class>cn.edustar.usermgr.xmlrpc.filter.XmlRpcUserContextFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>XmlRpcUserContextFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<servlet>
+		<servlet-name>JspSupportServlet</servlet-name>
+		<servlet-class>org.apache.struts2.views.JspSupportServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>authimg</servlet-name>
+		<servlet-class>cn.edustar.usermgr.servlet.VerifyCodeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>authimg</servlet-name>
+		<url-pattern>/authimg</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>XmlRpcServer</servlet-name>
+		<servlet-class>cn.edustar.usermgr.xmlrpc.servlet.XmlRpcServer</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>XmlRpcServer</servlet-name>
+		<url-pattern>/Server</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>VerUser</servlet-name>
+		<servlet-class>cn.edustar.usermgr.servlet.VerUser</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VerUser</servlet-name>
+		<url-pattern>/VerUser</url-pattern>
+	</servlet-mapping>
+	
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/ftl/404.ftl</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/ftl/500.ftl</location>
+	</error-page>
+</web-app>

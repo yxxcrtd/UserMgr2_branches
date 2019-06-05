@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+		autowire="autodetect">
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+				<prop key="hibernate.connection.provider_class">com.jolbox.bonecp.provider.BoneCPConnectionProvider</prop>
+				<prop key="hibernate.connection.driver_class">net.sourceforge.jtds.jdbc.Driver</prop>
+				<prop key="hibernate.connection.url">jdbc:jtds:sqlserver://192.168.3.1:1433;DatabaseName=juser2;SelectMethod=cursor</prop>
+				<prop key="hibernate.connection.username">sa</prop>
+				<prop key="hibernate.connection.password">lambada</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="bonecp.idleMaxAge">300</prop>
+				<prop key="bonecp.idleConnectionTestPeriod">300</prop>
+				<prop key="bonecp.partitionCount">4</prop>
+				<prop key="bonecp.acquireIncrement">10</prop>
+				<prop key="bonecp.maxConnectionsPerPartition">400</prop>
+				<prop key="bonecp.minConnectionsPerPartition">100</prop>
+				<prop key="bonecp.preparedStatementCacheSize">50</prop>
+				<prop key="bonecp.statementsCachedPerConnection">30</prop>
+				<prop key="bonecp.releaseHelperThreads">3</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>cn/edustar/usermgr/pojos/User.hbm.xml</value>
+				<value>cn/edustar/usermgr/pojos/Config.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+		lazy-init="true">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRED, readOnly</prop>
+				<prop key="find*">PROPAGATION_REQUIRED, readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>*Service</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="userContext" class="cn.edustar.usermgr.context.impl.UserContextImpl"
+		singleton="true" init-method="init" destroy-method="destroy">
+		<property name="userService" ref="userService" />
+		<property name="configService" ref="configService" />
+	</bean>
+	<bean id="loginAction" class="cn.edustar.usermgr.action.LoginAction"
+		lazy-init="true" singleton="false">
+		<property name="userService" ref="userService" />
+		<property name="configService" ref="configService" />
+	</bean>
+	<bean id="userService" class="cn.edustar.usermgr.service.impl.UserServiceImpl"
+		lazy-init="true">
+		<property name="userDao" ref="userDao" />
+	</bean>
+	<bean id="userDao" class="cn.edustar.usermgr.dao.hibernate.UserDaoHibernate"
+		lazy-init="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="logoutAction" class="cn.edustar.usermgr.action.LogoutAction"
+		lazy-init="true" singleton="false">
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="verifyAction" class="cn.edustar.usermgr.action.VerifyAction"
+		lazy-init="true" singleton="false">
+		<property name="userService" ref="userService" />
+		<property name="configService" ref="configService" />
+	</bean>
+	<bean id="findAction" class="cn.edustar.usermgr.action.FindAction"
+		lazy-init="true" singleton="false">
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="verUser" lazy-init="true" singleton="false"
+		class="cn.edustar.usermgr.servlet.VerUserBean">
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="configService" class="cn.edustar.usermgr.service.impl.ConfigServiceImpl"
+		lazy-init="true">
+		<property name="configDao" ref="configDao" />
+	</bean>
+	<bean id="configDao" class="cn.edustar.usermgr.dao.hibernate.ConfigDaoHibernate"
+		lazy-init="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>

@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+table{font-size:12px; margin:0; padding:0}
+ul, li{list-style:none}
+ul{padding:0; margin:0}
+a{color:#000; outline:none; text-decoration:none; blr:expression(this.onFocus =   this.blur () )}
+a:focus{-moz-outline-style:none}
+a:hover{color:#F00}
+#css3{border:1px dashed #E6DBC0; -moz-border-radius:7px; -webkit-border-radius:7px; border-radius:7px; -moz-box-shadow:5px 10px 10px rgba(0,0,0,0.5); -webkit-box-shadow:5px 10px 10px rgba(0,0,0,0.5); box-shadow:5px 10px 10px rgba(0,0,0,0.5)}
+#username, #password, #repassword, #verifyCode, #answer{font-weight:bold; width:155px; height:23px}
+h2{font-size:24px; padding-top:10px}
+.btn {cursor: pointer; border: none; color: #FFF !important; margin: 0 10px 0 20px; padding: 4px 13px 4px 13px; _padding-top: 4px; _padding-left: 7px; font: bold 13px "Helvetica Neue", Helvetica, Arial, clean, sans-serif !important; background: url("../images/bg_button.png") no-repeat; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; -moz-box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5); -webkit-box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5); box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.20); blr: expression(this.onFocus =   this.blur () )}
+.btn::-moz-focus-inner {border: none; border-color: transparent !important}
+.btn:hover,.btn:focus {background-position: 0 -50px; color: #FFF !important; background: url("../images/bg_button.png") no-repeat}
+.btn:active {background-position: 0 -100px; -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.7); -webkit-box-shadow: none; border-bottom: 0\9; border-top: 1px solid #666\9; background: url("../images/bg_button.png") no-repeat}
+.errorMessage{color:#F00; font-weight:bold}
+#wizardcontent{text-align:left; padding-left:15px}
+#mainNav li em{width:160px; display:block; margin:15px 0 10px 15px; font-style:normal; font-weight:bold}
+#mainNav li span{width:165px; display:block; margin:10px 0 10px 15px; font-weight:normal}
+#mainNav{clear:both}
+#mainNav li{height:71px; display:block; list-style:none; float:left; color:#E6DBC0; background-color:#EBEBEB; background-image:url(../images/navBtn.gif); background-repeat:no-repeat; background-position:right top}
+#mainNav li.corner{-moz-border-radius-bottomleft:7px; -webkit-border-bottom-left-radius:7px; border-bottom-left-radius:7px}
+#mainNav li.current{background-color:#C36615; background-image:url(../images/navCurrentBtn.gif)}
+#mainNav li.lastDone{background-color:#7C8437; background-image:url(../images/navLastDoneBtn.gif)}
+#mainNav li.done{background-color:#7C8437; background-image:url(../images/navDoneBtn.gif)}
+#mainNav.threeStep li.finalStep{background-image:none; width:34%; -moz-border-radius-bottomright:7px; -webkit-border-bottom-right-radius:7px; border-bottom-right-radius:7px}
+#mainNav li.lastDone, #mainNav li.current, #mainNav li.done{color:#FFF}
+#mainNav li.done, #mainNav li.lastDone{color:#CCC}
+#mainNav.threeStep li{width:33%}
+#wizardpanel{display:none}
+.loadImg{display:none; padding:0 0 0 13px; margin-left:1px; background-image:url("../images/loading.gif"); background-repeat:no-repeat}
+.mustInput{border:1px solid #F00; background-image:url("../images/inputBottom.gif"); background-repeat:repeat-x; background-position:bottom}
+#usernameTip, #answerTip, #passwordTip, #repasswordTip{color:#F00; font-weight:bold}

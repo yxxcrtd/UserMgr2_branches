@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "struts-2.1.dtd">
+
+<struts>
+	<include file="struts-default.xml" />
+	<package name="usermgr" extends="struts-default">
+		<action name="login" class="loginAction">
+			<result name="input">/index.jsp</result>
+			<result type="redirect">${redUrl}</result>
+		</action>
+		<action name="logout" class="logoutAction">
+			<result type="redirect">${redUrl}</result>
+		</action>
+		<action name="verify" class="verifyAction" />
+		<action name="find" class="findAction">
+			<result type="freemarker">/WEB-INF/ftl/FindPassword.ftl</result>
+		</action>
+	</package>
+</struts>
